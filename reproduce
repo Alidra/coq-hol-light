@@ -19,6 +19,8 @@ base=`basename $hollight_file .ml`
 root_path=HOLLight
 jobs='-j32'
 
+one_stage="false"
+
 usage() {
     echo "usage: `basename $0` [STAGE_NUMBER]"
     echo
@@ -256,7 +258,7 @@ stage() {
         echo '------------------------------------------------------------'
         echo stage $*
         $2
-        if test $one_stage -eq "true"
+        if test $one_stage = "true"
         then
             echo 20 > STAGE
         else
@@ -264,6 +266,11 @@ stage() {
         fi
     fi
 }
+
+if test -n "$2"
+then
+    shift
+fi
 
 if test -n "$1"
 then
