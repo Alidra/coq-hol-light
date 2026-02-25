@@ -160,12 +160,15 @@ patch_hollight() {
 }
 
 dump_proofs() {
-    if test ! -f hol-light/$hollight_file
+    if test -f hol-light/$hollight_file
     then
         echo dump hol-light proofs ...
         cd hol-light
         hol2dk dump-simp $hollight_file
         cd ..
+    else
+        echo can\'t find $(pwd)/hol-light/$hollight_file. Please make sure to run stages 1 to 5
+        echo and re-run the script from the repository root folder.
     fi
 }
 
@@ -258,6 +261,7 @@ stage() {
         echo '------------------------------------------------------------'
         echo stage $*
         $2
+        touch stage_$1_$2.ok
         if test $one_stage = "true"
         then
             echo 20 > STAGE
