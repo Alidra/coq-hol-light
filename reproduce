@@ -69,6 +69,8 @@ ask() {
     then
         read -p "$1 (y/n)? " answer
         echo $answer
+    else
+        echo y
     fi
 }
 
