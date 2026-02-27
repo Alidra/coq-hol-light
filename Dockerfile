@@ -4,16 +4,18 @@ LABEL authors=Deducteam
 RUN sudo apt update
 RUN sudo apt install -y perl pkg-config libpcre2-dev m4 libgmp-dev libev-dev libssl-dev
 
-COPY --chown=opam:opam ../coq-hol-light /home/opam/coq-hol-light
+COPY --chown=opam:opam . /home/opam/coq-hol-light
 RUN export HOLLIGHT_DIR=`pwd`/hol-light
 RUN export HOL2DK_DIR=`pwd`/hol2dk
 
 WORKDIR /home/opam/coq-hol-light
 RUN ./reproduce --only 2
-# RUN ./reproduce --only 3
-# RUN ./reproduce --only 4
-# RUN ./reproduce --only 5
-# RUN ./reproduce --only 6
-# RUN ./reproduce --only 7
-# RUN ./reproduce --only 8
-# RUN ./reproduce --only 9
+RUN ./reproduce --only 3
+RUN ./reproduce --only 4
+RUN ./reproduce --only 5
+RUN ./reproduce --only 6
+RUN ./reproduce --only 7
+RUN ./reproduce --only 8
+RUN ./reproduce --only 9
+
+RUN sudo apt install -y htop
