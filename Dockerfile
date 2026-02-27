@@ -17,5 +17,3 @@ RUN ./reproduce --only 6
 RUN ./reproduce --only 7
 RUN ./reproduce --only 8
 RUN ./reproduce --only 9
-
-RUN sudo apt install -y htop
