@@ -90,15 +90,16 @@ checkout_commit() {
 #usage: install_commit url commit
 install_commit() {
     checkout_commit $*
-    if test `git branch | grep reproduce | wc -l` -gt 0
-    then
-        d=`basename $1 .git`
-        cd $d
-        git checkout -b reproduce
-        echo opam install $d ...
-        opam install -y .
-        cd ..
-    fi
+    # if test `git branch | grep reproduce | wc -l` -gt 0
+    # then
+    d=`basename $1 .git`
+    cd $d
+    git checkout -b reproduce
+    echo opam install $d ...
+    opam install -y .
+    cd ..
+    echo $d installed successfully
+    # fi
 }
 
 create_opam_switch() {
@@ -117,6 +118,8 @@ install_hollight_deps() {
 }
 
 install_lambdapi() {
+    # newer versions of cmdliner break old versions of LP
+    opam install -y cmdliner.1.3.0
     install_commit https://github.com/Deducteam/lambdapi.git $lambdapi_commit
 }
 
@@ -273,11 +276,14 @@ stage() {
 
 if test -n "$2"
 then
+    # echo "found a second parameter"
     shift
+    # echo new parameters are $*
 fi
 
 if test -n "$1"
 then
+    # echo first argument is $1
     echo `expr $1 - 1` > STAGE
 fi
 
