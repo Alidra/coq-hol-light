@@ -196,11 +196,16 @@ translate_proofs() {
     then
         echo translate HOL-Light proofs to lambdapi and rocq ...
         cd output
-        make split
-        make $jobs lp
-        make $jobs v
-        make $jobs merge-spec-files
-        make $jobs rm-empty-deps
+        echo "time to split files:" > &2
+        time make split
+        echo "time to generate .lp files:" > &2
+        time make $jobs lp
+        echo "time to generate .v files:" > &2
+        time make $jobs v
+        echo "time to merge spec files:" > &2
+        time make $jobs merge-spec-files
+        echo "time to remove empty deps:" > &2
+        time make $jobs rm-empty-deps
         cd ..
     fi
 }
@@ -210,7 +215,8 @@ check_proofs() {
     then
         echo check proofs ...
         cd output
-        make $jobs -k vo
+        echo "time to check .v files:" > &2
+        time make $jobs -k vo
         cd ..
     fi
 }
