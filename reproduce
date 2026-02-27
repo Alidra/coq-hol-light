@@ -17,17 +17,19 @@ camlp5_version=8.03.05
 hollight_file=Multivariate/make_complex.ml
 base=`basename $hollight_file .ml`
 root_path=HOLLight
-jobs='-j32'
+: "${NB_CORES:=$(nproc)}"
+jobs="-j$NB_CORES"
 
 one_stage="false"
 
 usage() {
-    echo "usage: `basename $0` [STAGE_NUMBER]"
+    echo "usage: `NB_CORES= [NBRE_OF_AVAILABLE_CORES] basename $0` [STAGE_NUMBER]"
     echo
-    echo 'do stages from STAGE_NUMBER or last failing stage'
+    echo 'do stages from STAGE_NUMBER or last failing stage using NBRE_OF_AVAILABLE_CORES jobs'
     echo
     echo 'options:'
     echo '  -h|--help: print help'
+    echo '  -o|--only: do the provided stage only without following ones'
     echo '  -y: do not ask for user input, proceed automatically'
     echo
     echo 'stages:'
@@ -274,16 +276,13 @@ stage() {
     fi
 }
 
-if test -n "$2"
-then
-    # echo "found a second parameter"
+while test -n "$2"
+do
     shift
-    # echo new parameters are $*
-fi
+done
 
 if test -n "$1"
 then
-    # echo first argument is $1
     echo `expr $1 - 1` > STAGE
 fi
 
