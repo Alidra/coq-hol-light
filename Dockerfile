@@ -8,7 +8,7 @@ COPY --chown=opam:opam . /home/opam/coq-hol-light
 RUN export HOLLIGHT_DIR=`pwd`/hol-light
 RUN export HOL2DK_DIR=`pwd`/hol2dk
 
-WORKDIR /home/opam/coq-hol-light
+WORKDIR $HOME/coq-hol-light
 RUN ./reproduce --only 2
 RUN ./reproduce --only 3
 RUN ./reproduce --only 4
