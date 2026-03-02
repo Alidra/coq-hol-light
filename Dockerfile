@@ -17,3 +17,6 @@ RUN ./reproduce --only 6
 RUN ./reproduce --only 7
 RUN ./reproduce --only 8
 RUN ./reproduce --only 9
+
+ENTRYPOINT ["./reproduce"]
+CMD ["-y", "10"]
